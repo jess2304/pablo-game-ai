@@ -10,7 +10,7 @@ We will choose either we play the game of train the model and save it.
 
 import argparse
 from environment.game_env import PabloGameAI
-from ai.model import make_model, load_model
+from ai.model import make_model, load_model_from_path
 from ai.training import train_dqn
 from plots.plots import represent_from_json, represent_from_list
 from ai.evaluation import evaluate_model
@@ -21,6 +21,8 @@ def main():
     """
     main function to run when executing the program.
     """
+
+    
 
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=["train", "evaluate", "play"], help="Mode to run the script in.")
@@ -33,7 +35,7 @@ def main():
         env = PabloGameAI()
         model = make_model(size=5, optimizer = 'adam', loss = 'mse')
         # Train the model
-        train_dqn(env, model, n_episodes=100, save_path="models/model_pablo.h5", metrics_path="metrics/metrics.json")
+        train_dqn(env, model, n_episodes=2, save_path="models/model_pablo.h5", metrics_path="metrics/metrics.json")
 
         represent_from_json("metrics/metrics.json","Total rewards per episode","episode","total rewards")
 
@@ -41,7 +43,7 @@ def main():
 
     elif args.mode in ["evaluate", "play"]:
         # Load the model
-        model = load_model(args.model)
+        model = load_model_from_path(args.model)
         
 
         if model is not None:

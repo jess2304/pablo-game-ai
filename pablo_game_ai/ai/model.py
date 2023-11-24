@@ -21,7 +21,6 @@ def make_model(size: int, optimizer: str, loss: str):
     ])
     # Compile it
     model.compile(optimizer=optimizer, loss=loss)
-    tf.keras.utils.plot_model(model, to_file='model.png')
 
     return(model)
 

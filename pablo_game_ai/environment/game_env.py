@@ -3,7 +3,7 @@ Game environment named PabloGameAI
 """
 
 import random
-
+import numpy as np
 
 
 class PabloGameAI:
@@ -132,7 +132,7 @@ class PabloGameAI:
     if self.drawn_card == -1:
       self.pablo_called = True
       done = True
-      return (self.state, reward, done)
+      return (-1,self.state, reward, done)
     print("change the old state")
     old_state[4] = self.drawn_card
     print("old state : ",old_state)

@@ -3,7 +3,7 @@ Play a game against AI model imported
 """
 
 
-from env.game_env import PabloGameAI
+from environment.game_env import PabloGameAI
 import numpy as np
 
 
