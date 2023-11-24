@@ -9,7 +9,7 @@ We will choose either we play the game of train the model and save it.
 
 
 import argparse
-from env.game_env import PabloGameAI
+from environment.game_env import PabloGameAI
 from ai.model import make_model, load_model
 from ai.training import train_dqn
 from plots.plots import represent_from_json, represent_from_list
