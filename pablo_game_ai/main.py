@@ -35,7 +35,7 @@ def main():
         env = PabloGameAI()
         model = make_model(size=5, optimizer = 'adam', loss = 'mse')
         # Train the model
-        train_dqn(env, model, n_episodes=2, save_path="models/model_pablo.h5", metrics_path="metrics/metrics.json")
+        train_dqn(env, model, n_episodes=200, save_path="models/model_pablo.h5", metrics_path="metrics/metrics.json")
 
         represent_from_json("metrics/metrics.json","Total rewards per episode","episode","total rewards")
 
