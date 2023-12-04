@@ -29,57 +29,62 @@ def play_game(loaded_model):
         print("\n")
         # The turn of the human to take a card and decide
         drawn_card = env.draw_card()
-        action = int(input("Choose your action (1-5): "))
-        print("\n")
-        # Apply the action on the current state of the game
-        if action in [1, 2, 3, 4]:
-            # Exchange the card with one in your hand
-            card_index = action-1
-            env.human_hand[card_index] = drawn_card
+        if drawn_card != -1 :
+            action = int(input("Choose your action (1-6): "))
+            print("\n")
+            # Apply the action on the current state of the game
+            if action in [1, 2, 3, 4]:
+                # Exchange the card with one in your hand
+                card_index = action-1
+                env.human_hand[card_index] = drawn_card
 
-        elif action == 5:
-            # Call "Pablo"
-            env.pablo_called = True
-        elif action == 6:
-            # Do nothing
-            pass
+            elif action == 5:
+                # Call "Pablo"
+                env.pablo_called = True
+            elif action == 6:
+                # Do nothing
+                pass
 
-        done = env.pablo_called
+            done = env.pablo_called
+        else: 
+            done = True
 
         # The turn of the AI
         if not done:
             # AI takes a card
             print(f"Hand of human : {env.human_hand}    |    Hand of AI : {env.ai_hand}")
             env.drawn_card = env.draw_card()
+            if env.drawn_card != -1 :
+                # Make the current state
+                current_state = env.state_representation()
+                current_state = np.array(current_state).astype('float32')
+                current_state = np.reshape(current_state, [1, 5])
 
-            # Make the current state
-            current_state = env.state_representation()
-            current_state = np.array(current_state).astype('float32')
-            current_state = np.reshape(current_state, [1, 5])
+                # The AI model will predict the action with q values
+                q_values = loaded_model.predict(current_state)
 
-            # The AI model will predict the action with q values
-            q_values = loaded_model.predict(current_state)
+                # Choose the best action with q_value
+                best_action = np.argmax(q_values[0])+1
 
-            # Choose the best action with q_value
-            best_action = np.argmax(q_values[0])+1
+                # Apply the action
+                if best_action in [1, 2, 3, 4]:
+                    # Exchange the card with one in your hand
+                    card_index = best_action-1
+                    env.ai_hand[card_index] = env.drawn_card
 
-            # Apply the action
-            if best_action in [1, 2, 3, 4]:
-                # Exchange the card with one in your hand
-                card_index = best_action-1
-                env.ai_hand[card_index] = env.drawn_card
+                elif best_action == 5:
+                    # Call "Pablo"
+                    env.pablo_called = True
+                elif best_action == 6:
+                    # Do nothing
+                    pass
 
-            elif best_action == 5:
-                # Call "Pablo"
-                env.pablo_called = True
-            elif best_action == 6:
-                # Do nothing
-                pass
-
-            done = env.pablo_called
-
-            # PRint action of AI
-            print(f"AI has chosen {best_action}")
+                done = env.pablo_called
+                # PRint action of AI
+                print(f"AI has chosen {best_action}")
+            else:
+                done = True
+                
 
         # Check if the game is finished
         if done:

@@ -23,7 +23,6 @@ def main():
     """
 
     
-
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=["train", "evaluate", "play"], help="Mode to run the script in.")
     parser.add_argument("-m", "--model", help="Path to the AI model file (for evaluate and play modes).", default="models/model_pablo.h5")
@@ -50,8 +49,8 @@ def main():
 
             if args.mode == "evaluate":
                 env = PabloGameAI()
-                average_reward, list_rewards = evaluate_model(model,env,50)
-                represent_from_list(list_rewards)
+                average_reward, list_rewards = evaluate_model(model,env,30)
+                represent_from_list(list_rewards,"Total rewards per episode","episode","total rewards")
                 print(f"The average reward is {average_reward}.")
                 pass
 

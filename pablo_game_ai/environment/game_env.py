@@ -32,6 +32,8 @@ class PabloGameAI:
     self.state = self.state_representation() # Updating the state of the game
     self.pablo_called = False # We have just beguun
 
+    print("Length of the deck : ",len(self.deck))
+
 
 
   def reset(self):

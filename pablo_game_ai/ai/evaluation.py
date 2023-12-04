@@ -51,10 +51,9 @@ def evaluate_model(model, env, num_episodes=1):
               if not np.isnan(current_state).any():
                   # The AI model will predict the action with q values
                   q_values = model.predict(current_state)[0]
-
-
+                  
                   # Choose the best action with q_value
-                  best_action = np.argmax(q_values[0])+1
+                  best_action = np.argmax(q_values)+1
 
                   # Apply the action
                   if best_action in [1, 2, 3, 4]:
