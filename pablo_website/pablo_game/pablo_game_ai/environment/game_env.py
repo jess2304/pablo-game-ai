@@ -15,7 +15,7 @@ class PabloGameAI:
   The winner is the one who has the minimal sum of cards.
   """
 
-  def __init__(self, human_player = False):
+  def __init__(self, human_player = False, colours_consider = False):
     """
     Init the class with the attributes
     """

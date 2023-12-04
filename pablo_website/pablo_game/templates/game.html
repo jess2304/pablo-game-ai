@@ -1,14 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Jeu Pablo</title>
 </head>
+<link rel="stylesheet" href="{% static 'pablo_game/css/style.css' %}">
+
+<script type="text/javascript">
+    var received_data  = "{{human_cards_json|safe }}";
+    var staticPath = "{% static 'pablo_game/' %}";
+</script>
+
+
+
 <body>
     <h1>Bienvenue dans le Jeu Pablo</h1>
 
-    <div>
-        <h2>État actuel du jeu :</h2>
-        <p>État du jeu : {{ game_state }}</p>
+    <div id="game-board">
+        <div  id="ai-cards" class="card-ai-container">
+            <div class="card" id="ai-card-1"></div>
+            <div class="card" id="ai-card-2"></div>
+            <div class="card" id="ai-card-3"></div>
+            <div class="card" id="ai-card-4"></div>
+
+        </div>
+
+        <div  id="humain-cards" class="card-human-container">
+            <div class="card" id="human-card-1"></div>
+            <div class="card" id="human-card-2"></div>
+            <div class="card" id="human-card-3"></div>
+            <div class="card" id="human-card-4"></div>
+            
+        </div>
+
+        <div class="deck-container">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+        
     </div>
 </body>
+<script type="text/javascript" src="{% static 'pablo_game/js/main.js' %}"></script>
 </html>
