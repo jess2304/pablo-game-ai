@@ -6,6 +6,29 @@ import random
 import numpy as np
 
 
+
+
+DECK = ["ace_of_clubs","ace_of_hearts","ace_of_diamonds","ace_of_spades"] +[str(i)+"_of_clubs" for i in range(2,11)] + [str(i)+"_of_spades" for i in range(2,11)] + [str(i)+"_of_diamonds" for i in range(2,11)] + [str(i)+"_of_hearts" for i in range(2,11)]
+
+
+def str_to_int(card):
+  """
+  Transforms the string with color to a simple int
+
+  Returns
+  -------
+  int 
+    The number in the card
+  """
+
+  if ('ace' in card):
+    result = 1
+  else:
+    result = int(card.replace("_of_clubs","").replace("_of_hearts","").replace("_of_diamonds","").replace("_of_spades",""))
+
+  return result
+
+
 class PabloGameAI:
   """
   PabloGameAI is a class that describes an environment 
@@ -19,7 +42,7 @@ class PabloGameAI:
     """
     Init the class with the attributes
     """
-    self.deck = [i for i in range(1,11)] * 4    # cards from 1 to 10 and in 4 different colors
+    self.deck = DECK    # cards from 1 to 10 and in 4 different colors
     random.shuffle(self.deck) # Shuffle the deck
     self.ai_hand = self.deck[:4] # 4 cards for IA
     self.deck = self.deck[4:]  # Take the 4 cards from the deck
@@ -46,7 +69,7 @@ class PabloGameAI:
       The representation of state
     """
 
-    self.deck = [i for i in range(1,11)] * 4    # cards from 1 to 10 and in 4 different colors
+    self.deck = DECK    # cards from 1 to 10 and in 4 different colors
     random.shuffle(self.deck)  # Shuffle the deck
     self.ai_hand = self.deck[:4]  # 4 cards for IA
     self.deck = self.deck[4:]  # Take the 4 cards from the deck
@@ -75,6 +98,8 @@ class PabloGameAI:
     else:
       print("The drawn card is : ",-1)
       return(-1)   # No cards in the deck :'(
+  
+
 
 
   def choose_action(self, state, model, epsilon):
@@ -183,7 +208,16 @@ class PabloGameAI:
     """
 
     # Represent current state
-    return(self.ai_hand + [self.drawn_card])
+
+
+    ai_hand_int = [str_to_int(card) for card in self.ai_hand]
+    if self.drawn_card is not None :
+      drawn_card = [str_to_int(self.drawn_card)]
+    else:
+      drawn_card = [self.drawn_card]
+
+
+    return(ai_hand_int + drawn_card)
 
   def reward(self, old_state, new_state):
     """
