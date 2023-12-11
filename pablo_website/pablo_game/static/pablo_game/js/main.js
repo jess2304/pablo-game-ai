@@ -1,5 +1,5 @@
-
-
+/**************************************************************** */
+/*  Show the cards of human */
 var element1 = document.getElementById("human-card-1");
 var element2 = document.getElementById("human-card-2");
 var element3 = document.getElementById("human-card-3");
@@ -30,3 +30,10 @@ element1.style.backgroundImage = "url(" + filePath1 + ")";
 element2.style.backgroundImage = "url(" + filePath2 + ")";
 element3.style.backgroundImage = "url(" + filePath3 + ")";
 element4.style.backgroundImage = "url(" + filePath4 + ")";
+
+
+/*****************************************************************/
+
+
+
+  
